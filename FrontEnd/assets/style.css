@@ -30,9 +30,14 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: #FFFEF8;
 }
 ol, ul {
 	list-style: none;
+}
+a {
+	text-decoration: none;
+	color: black;
 }
 blockquote, q {
 	quotes: none;
@@ -56,19 +61,18 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
 }
 section {
-	margin: 50px 0
+	margin: 100px 0;
 }
-
 h1{
 	display: flex;
 	flex-direction: column;
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
 }
 
 h1 > span {
@@ -82,7 +86,7 @@ h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: #1D6154;
 }
 nav ul {
 	display: flex;
@@ -98,6 +102,11 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
+.link-active {
+	font-weight: 600;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -125,6 +134,35 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+.filterGallery {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 2em;
+}
+
+.filterGallery-btn {
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	background-color: transparent;
+	font-family: 'Syne';
+	color: #1D6154;
+	font-size: 16px;
+	padding: 9px 20px;
+	cursor: pointer;
+	transition: all 250ms ease;
+}
+
+.filterGallery-btn:hover {
+	background-color: #0E2F28;
+	color: white;}
+
+.btn-active, .btn-active:hover {
+	background-color: #1D6154;
+	color: white;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -137,31 +175,40 @@ li:hover {
 	width: 100%;
 
 }
-#contact {
+
+.figureHidden {
+	display: none;
+}
+
+#contact, #login {
 	width: 50%;
 margin: auto;
 }
-#contact > * {
+#contact > *, #login > * {
 	text-align: center;
 
 }
 #contact h2{
 	margin-bottom: 20px;
 }
-#contact form {
+#contact form, #login form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+#contact input, #login input, #formAddWork input, #formAddWork select {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	font-family: 'Work Sans';
+	font-size: 14px;
+	padding-left: 20px;
 }
-#contact label {
+
+#contact label, #login label {
 	margin: 2em 0 1em 0;
 }
 #contact textarea {
@@ -169,7 +216,24 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+#bodyLogin {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-content: space-between;
+}
+
+#bodyLogin main {
+	flex: 1;
+	margin: 50px;
+}
+
+#login a {
+	text-align: center;
+	text-decoration: underline;
+}
+
+input[type="submit"] {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -178,11 +242,271 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
+	transition: all 250ms;
+}
+
+input[type="submit"]:hover, .btn-addWork:hover, .btn-addWork-Valid:hover { 
+	background-color: #0E2F28;
+}
+
+input[type="submit"]:disabled, .btn-addWork-Valid:disabled {
+	background-color: #A7A7A7;
+	cursor: default;
 }
 
 footer nav ul {
+	background-color: white;
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	padding: 2em;
+}
+
+#bodyLogin footer {
+	max-width: 1440px;
+}
+
+.errorLogin {
+	display: none;
+	margin-top: 30px;
+	min-height: 50px;
+	line-height: 50px;
+	border: 1px solid red;
+	background-color: rgb(255, 100, 100);
+	color: white;
+	text-align: center;
+}
+
+.editMode {
+	margin-top: 100px;
+}
+
+.editModeDiv{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 60px;	
+	background-color: black;
+	color: white;
+	text-align: center;
+	line-height: 60px;
+}
+
+.paraProjet {
+	display: flex;
+	justify-content: center;
+}
+
+.btn-modal-modif{
+	position: absolute;
+	margin-left: 400px;
+	margin-top: 7px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+
+/* Modal */
+#modal1::backdrop {
+	margin-top: 50px;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+#modal2::backdrop {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+dialog {
+	padding: 0;
+	border: none;
+	border-radius: 10px;
+}
+
+.modal-container {
+	position: relative;
+	width: 630px;
+	height: 690px;
+	background-color: #FFF;
+	display: flex;
+	flex-direction: column;
+	align-items: center;	
+}
+
+.title-modal {
+	font-family: 'Work Sans';
+	font-weight: 400;
+	margin-top: 60px;
+	font-size: 26px;
+	color: black;
+}
+
+.btn-close {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	border: none;
+	background-color: transparent;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.btn-backModal {
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	border: none;
+	background-color: transparent;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.modalGallery-container, .modalAddWork-container {
+	flex: 1;
+	width: 70%;
+	border-bottom: 1px solid #B3B3B3;
+	overflow: auto;
+}
+
+.modalGallery {		
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 10px 5px;
+}
+
+.modalGallery img {
+	width: 100%;
+}
+
+.modalGallery figure {
+	position: relative;
+}
+
+.modalGallery .btn-delete {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	color: white;
+	background-color: black;
+	padding: 3px 4px;
+	border-radius: 2px;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+.btn-addWork, .btn-addWork-Valid {
+	width: 240px;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	font-size: 14px;
+	padding: 10px 50px;
+	text-align: center;
+	border-radius: 60px ;
+	cursor: pointer;
+	transition: all 250ms;
+	border: none;
+	margin-top: 45px;
+	margin-bottom: 45px;
+}
+
+.btn-addWork-Valid.disabled {
+	background-color: #A7A7A7;
+	cursor: default;
+} 
+
+#formAddWork {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.modalFile {
+	height: 170px;
+	width: 100%;
+	background-color: #E8F1F6;
+	border-radius: 3px;
+}
+
+.modalFileOption {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 6px;
+	align-items: center;
+}
+
+.modalFile img {
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+
+}
+
+.modalFileOption i {
+	font-size: 76px;
+	color: #B9C5CC
+}
+
+.modalFileOption #labelAddFile {
+	color: #306685;
+	font-weight: 500;
+	font-family: 'Work Sans';
+	font-size: 14px;
+	padding: 10px 33px;
+	border: none;
+	border-radius: 50px;
+	background-color: #CBD6DC;
+	cursor: pointer;
+	margin: 0;
+}
+
+.modalFileOption input[type="file"] {
+	display: none;
+}
+
+.modalFileOption p {
+	font-size: 10px;
+}
+
+.modalAddWork-container {
+	display: flex;
+	flex-direction: column;
+	overflow:visible;
+}
+
+.modalAddWork-container label {
+	margin-top: 40px;
+	margin-bottom: 10px;
+}
+
+.notification {
+	position: absolute;
+	bottom: 90px;
+	width: 65%;
+	border-radius: 10px;
+	padding: 20px;
+	font-size: 16px;
+	color: white;
+	text-align: center;
+	opacity: 1;
+	transition: opacity 300ms ease;
+}
+
+.notification.green {
+	background-color: rgb(52, 187, 52);
+}
+
+.notification.red {
+	background-color: rgb(255, 100, 100);
+}
+
+.notification.hide {
+	opacity: 0;
 }
 
